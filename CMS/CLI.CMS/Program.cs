@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Net.ServerSentEvents;
+using Library.CMS.Models;
 
-namespace MyApp
+namespace CMS
 {
     internal class Program
     {
@@ -11,12 +12,12 @@ namespace MyApp
 
             Console.WriteLine("Choose a site to manage:");
 
-            List<string> sites = new List<string>
+            Site site1 = new Site{Name = "Site 1"};
+            List<Site> sites = new List<Site>
             {
-                "Site 1"
-                , "Site 2"
-                , "Site 3"
+                site1
             };
+
             int count = 0;
             sites.ForEach(s => Console.WriteLine($"{++count}. {s}"));
 
@@ -29,7 +30,8 @@ namespace MyApp
                 Console.WriteLine(selection);
 
                 var match = sites
-                    .FirstOrDefault(s => s.Equals(selection, StringComparison.InvariantCultureIgnoreCase));
+                    .FirstOrDefault(s => s?.Name?.Equals(selection, StringComparison.InvariantCultureIgnoreCase)
+                    ?? false);
 
                 if(match != null)
                 {
