@@ -1,9 +1,13 @@
+using System.Data.Common;
+
 namespace Library.CMS.Models;
 
 public class Site
 {
     public string? Name{get; set;}
     private string? owner;
+
+    public int Id {get; set;}
     public string? Owner{
         get
         {

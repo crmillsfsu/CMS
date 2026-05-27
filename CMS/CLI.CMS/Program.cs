@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Net.ServerSentEvents;
 using Library.CMS.Models;
+using Library.CMS.Services;
 
 namespace CMS
 {
@@ -9,17 +10,23 @@ namespace CMS
         static void Main(string[] args)
         {
             Console.WriteLine("Welcome to the Content Management System");
+            Console.WriteLine("C. Create a Site");
+
+            var choice = Console.ReadLine();
+            if(choice.Equals("C", StringComparison.InvariantCultureIgnoreCase))
+            {
+                Console.WriteLine("Name:");
+                var name = Console.ReadLine();
+                var site = new Site{Name = name};
+                SiteServiceProxy.Current.Add(site);
+            }
 
             Console.WriteLine("Choose a site to manage:");
 
-            Site site1 = new Site{Name = "Site 1"};
-            List<Site> sites = new List<Site>
-            {
-                site1
-            };
+
 
             int count = 0;
-            sites.ForEach(s => Console.WriteLine($"{++count}. {s}"));
+            SiteServiceProxy.Current.Sites.ForEach(s => Console.WriteLine($"{++count}. {s}"));
 
             var selection = Console.ReadLine();
 
