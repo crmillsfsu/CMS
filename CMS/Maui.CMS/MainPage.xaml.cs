@@ -5,9 +5,8 @@ using Microsoft.UI.Xaml.CustomAttributes;
 
 namespace Maui.CMS;
 
-public partial class MainPage : ContentPage, INotifyPropertyChanged
+public partial class MainPage : ContentPage
 {
-	int count = 0;
 
 	public MainPage()
 	{
@@ -17,13 +16,14 @@ public partial class MainPage : ContentPage, INotifyPropertyChanged
 	}
 
 
-	private void OnCounterClicked(object? sender, EventArgs e)
+	private void AddClicked(object? sender, EventArgs e)
 	{
-		count++;
-
-		if (count == 1)
-			(BindingContext as MainViewViewModel).ButtonContent = $"Clicked {count} time";
-		else
-			(BindingContext as MainViewViewModel).ButtonContent = $"Clicked {count} times";
+		Shell.Current.GoToAsync("//SiteDetail");
+		
 	}
+
+    private void ContentPage_NavigatedTo(object sender, NavigatedToEventArgs e)
+    {
+		(BindingContext as MainViewViewModel).RefreshSitesList();
+    }
 }

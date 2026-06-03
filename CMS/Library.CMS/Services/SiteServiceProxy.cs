@@ -15,8 +15,9 @@ namespace Library.CMS.Services {
 
         private int LastKey => Sites.Select(s => s.Id).Max();
 
-        public void Add(Site site)
+        public void Add(Site? site)
         {
+            if(site == null) return;
             if(site.Id == 0)
             {
                 site.Id = LastKey + 1;
@@ -42,6 +43,18 @@ namespace Library.CMS.Services {
         }
 
         private List<Site> sites;
-        public List<Site> Sites {get; set;}
+        public List<Site> Sites {
+            get
+            {
+                return sites;
+            }
+            set
+            {
+                if(sites != value)
+                {
+                    sites = value;
+                }
+            }
+        }
     }
 }
