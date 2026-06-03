@@ -1,11 +1,14 @@
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using Library.CMS.Models;
+using Library.CMS.Services;
 
 namespace Maui.CMS.ViewModels;
 
 public class MainViewViewModel : INotifyPropertyChanged
 {
-    public void NotifyPropertyChanged([CallerMemberName] string propertyName = "")
+    private void NotifyPropertyChanged([CallerMemberName] string propertyName = "")
 	{
 		if (propertyName is null)
 		{
@@ -15,24 +18,27 @@ public class MainViewViewModel : INotifyPropertyChanged
 		PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 	}
 
+	public void RefreshSitesList()
+	{
+		NotifyPropertyChanged("Sites");
+	}
+
     public event PropertyChangedEventHandler? PropertyChanged;
-    private string buttonContent;
-	public string ButtonContent {
+    
+	public ObservableCollection<Site> Sites
+	{
 		get
 		{
-			return buttonContent;
-		}
-
-		set
-		{
-			if(buttonContent != value)
+			var sites = SiteServiceProxy.Current.Sites;
+			if(sites != null)
 			{
-				buttonContent = value;
+				return new ObservableCollection<Site>(sites);
 			}
-
-			NotifyPropertyChanged();
+			return new ObservableCollection<Site>();
 		}
-	} 
+	}
+
+	public Site? SelectedSite {get; set;}
 
     
 }
