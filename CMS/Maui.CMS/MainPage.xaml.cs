@@ -26,4 +26,9 @@ public partial class MainPage : ContentPage
     {
 		(BindingContext as MainViewViewModel).RefreshSitesList();
     }
+
+    private void DeleteClicked(object sender, EventArgs e)
+    {
+		(BindingContext as MainViewViewModel).DeleteSelectedSite();
+    }
 }
