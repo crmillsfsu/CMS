@@ -18,7 +18,16 @@ public class MainViewViewModel : INotifyPropertyChanged
 		PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 	}
 
-	public void RefreshSitesList()
+    public void DeleteSelectedSite()
+	{
+        if (SelectedSite != null)
+        {
+            SiteServiceProxy.Current.Delete(SelectedSite.Id);
+            RefreshSitesList();
+        }
+    }
+
+    public void RefreshSitesList()
 	{
 		NotifyPropertyChanged("Sites");
 	}

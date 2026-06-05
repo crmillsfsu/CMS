@@ -7,8 +7,8 @@ namespace Library.CMS.Services {
         {
             sites = new List<Site>
             {
-                new Site{Name = "Site 1"}
-                , new Site{Name = "Site 2"}
+                new Site{Name = "Site 1", Id = 1}
+                , new Site{Name = "Site 2", Id = 2}
             };
 
         }
@@ -40,6 +40,17 @@ namespace Library.CMS.Services {
                 }
                 return instance;
             }
+        }
+
+        public Site? Delete(int id)
+        {
+            var site = Sites.FirstOrDefault(s => s.Id == id);
+            if (site != null)
+            {
+                sites.Remove(site);
+            }
+
+            return site;
         }
 
         private List<Site> sites;
