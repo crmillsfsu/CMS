@@ -9,6 +9,10 @@
         <VerticalStackLayout
             Padding="30,0"
             Spacing="25">
+            <Grid ColumnDefinitions="*,auto">
+                <Entry Text="{Binding Query}" Grid.Column="0"/>
+                <Button Text="Search" Grid.Column="1" Clicked="SearchClicked"/>
+            </Grid>
             <CollectionView
                 ItemsSource="{Binding Sites}"
                 SelectionMode="Single"

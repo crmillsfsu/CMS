@@ -37,4 +37,9 @@ public partial class MainPage : ContentPage
 		var selectedSiteId = (BindingContext as MainViewViewModel).SelectedSite?.Id ?? 0;
         Shell.Current.GoToAsync($"//SiteDetail?siteId={selectedSiteId}");
     }
+
+    private void SearchClicked(object sender, EventArgs e)
+    {
+        (BindingContext as MainViewViewModel).RefreshSitesList();
+    }
 }
