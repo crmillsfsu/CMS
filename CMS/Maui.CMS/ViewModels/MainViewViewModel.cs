@@ -38,7 +38,7 @@ public class MainViewViewModel : INotifyPropertyChanged
 	{
 		get
 		{
-			var sites = SiteServiceProxy.Current.Sites;
+			var sites = SiteServiceProxy.Current.Sites.Where(s => s?.Name?.ToUpper()?.Contains(Query?.ToUpper() ?? string.Empty) ?? false);
 			if(sites != null)
 			{
 				return new ObservableCollection<Site>(sites);
@@ -48,6 +48,6 @@ public class MainViewViewModel : INotifyPropertyChanged
 	}
 
 	public Site? SelectedSite {get; set;}
+	public string? Query { get; set; }
 
-    
 }
