@@ -15,14 +15,16 @@ namespace Library.CMS.Services {
 
         private int LastKey => Sites.Select(s => s.Id).Max();
 
-        public void Add(Site? site)
+        public void AddOrUpdate(Site? site)
         {
             if(site == null) return;
+
             if(site.Id == 0)
             {
                 site.Id = LastKey + 1;
+                sites.Add(site);
             }
-            sites.Add(site);
+
         }
 
         private static SiteServiceProxy? instance;

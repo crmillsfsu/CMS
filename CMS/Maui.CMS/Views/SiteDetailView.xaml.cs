@@ -7,8 +7,10 @@ using Microsoft.UI.Xaml.CustomAttributes;
 
 namespace Maui.CMS.Views;
 
+[QueryProperty(nameof(SiteId), "siteId")]
 public partial class SiteDetailView : ContentPage, INotifyPropertyChanged
 {
+    public int SiteId { get; set; }
     public SiteDetailView()
     {
         InitializeComponent();
@@ -22,7 +24,7 @@ public partial class SiteDetailView : ContentPage, INotifyPropertyChanged
     private void OkClicked(object? sender, EventArgs e)
 	{
         var site = (BindingContext as Site);
-        SiteServiceProxy.Current.Add(site);
+        SiteServiceProxy.Current.AddOrUpdate(site);
         if (site != null)
         {
             Shell.Current.GoToAsync("//MainPage");
@@ -31,6 +33,15 @@ public partial class SiteDetailView : ContentPage, INotifyPropertyChanged
 
     private void ContentPage_NavigatedTo(object sender, NavigatedToEventArgs e)
     {
-        BindingContext = new Site();
+        if (SiteId == 0)
+        {
+            BindingContext = new Site();
+        }
+        else
+        {
+            BindingContext = SiteServiceProxy.Current.Sites.FirstOrDefault(s => s.Id == SiteId) ?? new Site();
+            //BindingContext = SiteServiceProxy.Current.GetById(SiteId) ?? new Site();
+        }
+
     }
 }
