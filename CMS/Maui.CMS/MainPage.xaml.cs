@@ -31,4 +31,10 @@ public partial class MainPage : ContentPage
     {
 		(BindingContext as MainViewViewModel).DeleteSelectedSite();
     }
+
+    private void EditClicked(object sender, EventArgs e)
+    {
+		var selectedSiteId = (BindingContext as MainViewViewModel).SelectedSite?.Id ?? 0;
+        Shell.Current.GoToAsync($"//SiteDetail?siteId={selectedSiteId}");
+    }
 }

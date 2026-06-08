@@ -23,6 +23,10 @@
                 Text="Delete Site"
                 Clicked="DeleteClicked"
                 HorizontalOptions="Fill"/>
+            <Button
+                Text="Edit Site"
+                Clicked="EditClicked"
+                HorizontalOptions="Fill"/>
         </VerticalStackLayout>
     </ScrollView>
 

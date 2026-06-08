@@ -18,7 +18,7 @@ namespace CMS
                 Console.WriteLine("Name:");
                 var name = Console.ReadLine();
                 var site = new Site{Name = name};
-                SiteServiceProxy.Current.Add(site);
+                SiteServiceProxy.Current.AddOrUpdate(site);
             }
 
             Console.WriteLine("Choose a site to manage:");
