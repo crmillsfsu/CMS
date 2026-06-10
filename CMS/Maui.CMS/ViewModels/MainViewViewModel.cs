@@ -34,16 +34,20 @@ public class MainViewViewModel : INotifyPropertyChanged
 
     public event PropertyChangedEventHandler? PropertyChanged;
     
-	public ObservableCollection<Site> Sites
+	public ObservableCollection<SiteViewModel> Sites
 	{
 		get
 		{
-			var sites = SiteServiceProxy.Current.Sites.Where(s => s?.Name?.ToUpper()?.Contains(Query?.ToUpper() ?? string.Empty) ?? false);
+			var sites = SiteServiceProxy.Current.Sites
+				.Where(s => s?.Name?.ToUpper()?
+				.Contains(Query?.ToUpper() ?? string.Empty) ?? false)
+				.Select(s => new SiteViewModel(s)).ToList();
+			
 			if(sites != null)
 			{
-				return new ObservableCollection<Site>(sites);
+				return new ObservableCollection<SiteViewModel>(sites);
 			}
-			return new ObservableCollection<Site>();
+			return new ObservableCollection<SiteViewModel>();
 		}
 	}
 

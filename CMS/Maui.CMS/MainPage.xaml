@@ -17,7 +17,16 @@
                 ItemsSource="{Binding Sites}"
                 SelectionMode="Single"
                 SelectedItem="{Binding SelectedSite}"
-                />
+                >
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid ColumnDefinitions="auto,*,auto">
+                            <Label Grid.Column="0" Text="{Binding Name}"/>
+                            <Button Text="Edit" Grid.Column="2" Command="{Binding EditCommand}"/>
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
 
             <Button
                 Text="Add Site" 
