@@ -42,4 +42,9 @@ public partial class MainPage : ContentPage
     {
         (BindingContext as MainViewViewModel).RefreshSitesList();
     }
+
+    private void Button_Clicked(object sender, EventArgs e)
+    {
+
+    }
 }
