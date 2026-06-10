@@ -1,4 +1,5 @@
 ﻿using Library.CMS.Models;
+using Library.CMS.Services;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -22,7 +23,7 @@ namespace Maui.CMS.ViewModels
 
         private void SetUpCommands()
         {
-            //DeleteCommand = new Command(DoDelete);
+            DeleteCommand = new Command(DoDelete);
             EditCommand = new Command(DoEdit);
         }
 
@@ -32,6 +33,10 @@ namespace Maui.CMS.ViewModels
             {
                 Shell.Current.GoToAsync($"//SiteDetail?siteId={Model?.Id}");
             }
+        }
+
+        private void DoDelete() {
+            SiteServiceProxy.Current.Delete(Model.Id);
         }
 
         public Site Model { get; set; }
@@ -54,5 +59,6 @@ namespace Maui.CMS.ViewModels
         }
 
         public ICommand EditCommand { get; set; }
+        public ICommand DeleteCommand { get; set; }
     }
 }
