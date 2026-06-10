@@ -38,7 +38,7 @@ public partial class MainPage : ContentPage
         Shell.Current.GoToAsync($"//SiteDetail?siteId={selectedSiteId}");
     }
 
-    private void SearchClicked(object sender, EventArgs e)
+    private void RefreshClicked(object sender, EventArgs e)
     {
         (BindingContext as MainViewViewModel).RefreshSitesList();
     }

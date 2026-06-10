@@ -11,7 +11,7 @@
             Spacing="25">
             <Grid ColumnDefinitions="*,auto">
                 <Entry Text="{Binding Query}" Grid.Column="0"/>
-                <Button Text="Search" Grid.Column="1" Clicked="SearchClicked"/>
+                <Button Text="Search" Grid.Column="1" Clicked="RefreshClicked"/>
             </Grid>
             <CollectionView
                 ItemsSource="{Binding Sites}"
@@ -20,9 +20,10 @@
                 >
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
-                        <Grid ColumnDefinitions="auto,*,auto">
+                        <Grid ColumnDefinitions="auto,*,auto,auto">
                             <Label Grid.Column="0" Text="{Binding Name}"/>
                             <Button Text="Edit" Grid.Column="2" Command="{Binding EditCommand}"/>
+                            <Button Text="Delete" Grid.Column="3" Command="{Binding DeleteCommand}" Clicked="RefreshClicked"/>
                         </Grid>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
