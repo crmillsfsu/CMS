@@ -5,11 +5,7 @@ namespace Library.CMS.Services {
     {
         private SiteServiceProxy()
         {
-            sites = new List<Site>
-            {
-                new Site{Name = "Site 1", Id = 1}
-                , new Site{Name = "Site 2", Id = 2}
-            };
+            sites = new List<Site>();
 
         }
 
