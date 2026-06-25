@@ -1,15 +1,20 @@
+using Library.CMS.DTO;
 using Library.CMS.Models;
+using Library.CMS.Util;
+using Newtonsoft.Json;
 
 namespace Library.CMS.Services {
     public  class SiteServiceProxy
     {
         private SiteServiceProxy()
         {
-            sites = new List<Site>();
+            var sitesString = new WebRequestHandler().Get("/Sites").Result;
+            var mySites = JsonConvert.DeserializeObject<List<Site>>(sitesString);
+            sites = mySites ?? new List<Site>();
 
         }
 
-        private int LastKey => Sites.Select(s => s.Id).Max();
+        private int LastKey => Sites.Any() ? Sites.Select(s => s.Id).Max() : 0;
 
         public void AddOrUpdate(Site? site)
         {
@@ -17,10 +22,12 @@ namespace Library.CMS.Services {
 
             if(site.Id == 0)
             {
-                site.Id = LastKey + 1;
+                //site.Id = LastKey + 1;
                 sites.Add(site);
             }
 
+            var response = new WebRequestHandler().Post("/Site", new SiteDTO(site)).Result;
+            var newSite = JsonConvert.DeserializeObject<SiteDTO>(response);
         }
 
         private static SiteServiceProxy? instance;
@@ -47,7 +54,7 @@ namespace Library.CMS.Services {
             {
                 sites.Remove(site);
             }
-
+            var response = new WebRequestHandler().Delete($"/Sites/{id}").Result;
             return site;
         }
 

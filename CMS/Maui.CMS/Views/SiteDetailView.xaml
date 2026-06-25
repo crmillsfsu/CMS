@@ -22,6 +22,20 @@
             <Entry Grid.Column="1"
                 Text="{Binding Name}"/>
         </Grid>
+        <Grid Grid.Row="1">
+            <CollectionView
+                ItemsSource="{Binding Content}"
+                >
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid ColumnDefinitions="auto,*">
+                            <Label FontAttributes="Bold" Grid.Column="0" Text="{Binding TitleDisplay}"/>
+                            <Label Grid.Column="2" Text="{Binding Model.Content}"/>
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </Grid>
         <Grid Grid.Row="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>

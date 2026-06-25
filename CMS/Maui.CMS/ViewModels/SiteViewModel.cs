@@ -58,6 +58,14 @@ namespace Maui.CMS.ViewModels
             }
         }
 
+        public List<PageViewModel> Content
+        {
+            get
+            {
+                return Model.Content.Select(p => new PageViewModel(p)).ToList();
+            }
+        }
+
         public ICommand EditCommand { get; set; }
         public ICommand DeleteCommand { get; set; }
     }
