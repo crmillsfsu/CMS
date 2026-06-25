@@ -10,5 +10,7 @@ namespace API.CMS.Database
                 new Site{Name = "Site 1", Id = 1}
                 , new Site{Name = "Site 2", Id = 2}
             };
+
+        public static int LastKey => Sites.Any() ? Sites.Select(s => s.Id).Max() : 0;
     }
 }

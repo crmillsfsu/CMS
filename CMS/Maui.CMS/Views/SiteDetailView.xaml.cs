@@ -35,11 +35,14 @@ public partial class SiteDetailView : ContentPage, INotifyPropertyChanged
     {
         if (SiteId == 0)
         {
-            BindingContext = new Site();
+            BindingContext = new SiteViewModel();
         }
         else
         {
-            BindingContext = SiteServiceProxy.Current.Sites.FirstOrDefault(s => s.Id == SiteId) ?? new Site();
+            var model = SiteServiceProxy.Current.Sites.FirstOrDefault(s => s.Id == SiteId);
+            BindingContext =  model == null ?
+                new SiteViewModel() 
+                : new SiteViewModel(model);
             //BindingContext = SiteServiceProxy.Current.GetById(SiteId) ?? new Site();
         }
 
