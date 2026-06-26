@@ -31,7 +31,7 @@ namespace Library.CMS.DTO
         public SiteDTO()
         {
             Users = new List<string>();
-            Content = new List<Page> { new Page { Title = "Page 1", Content = "Content for Page 1" }, new Page { Title = "Page 2", Content = "Content for Page 2" } };
+            Content = new List<Page>();
         }
 
         public override string ToString() => $"{Name}";

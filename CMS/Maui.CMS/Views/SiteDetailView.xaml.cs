@@ -23,8 +23,8 @@ public partial class SiteDetailView : ContentPage, INotifyPropertyChanged
 
     private void OkClicked(object? sender, EventArgs e)
 	{
-        var site = (BindingContext as Site);
-        SiteServiceProxy.Current.AddOrUpdate(site);
+        var site = (BindingContext as SiteViewModel);
+        SiteServiceProxy.Current.AddOrUpdate(site.Model);
         if (site != null)
         {
             Shell.Current.GoToAsync("//MainPage");

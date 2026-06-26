@@ -9,25 +9,37 @@ namespace Library.CMS.Services {
         private SiteServiceProxy()
         {
             var sitesString = new WebRequestHandler().Get("/Sites").Result;
-            var mySites = JsonConvert.DeserializeObject<List<Site>>(sitesString);
-            sites = mySites ?? new List<Site>();
+            var mySites = JsonConvert.DeserializeObject<List<SiteDTO>>(sitesString);
+            sites = mySites ?? new List<SiteDTO>();
 
         }
 
         private int LastKey => Sites.Any() ? Sites.Select(s => s.Id).Max() : 0;
 
-        public void AddOrUpdate(Site? site)
+        public void AddOrUpdate(SiteDTO? site)
         {
             if(site == null) return;
 
-            if(site.Id == 0)
+            bool isAdd = false;
+
+            var response = new WebRequestHandler().Post("/Sites", site).Result;
+            var newSite = JsonConvert.DeserializeObject<SiteDTO>(response);
+
+
+
+            if (site.Id == 0)
             {
                 //site.Id = LastKey + 1;
                 sites.Add(site);
+
+            } else
+            {
+                var siteToUpdate = Sites.FirstOrDefault(s => s.Id == newSite.Id);
+                var index = Sites.IndexOf(siteToUpdate);
+                Sites.Remove(siteToUpdate);
+                Sites.Insert(index, newSite);
             }
 
-            var response = new WebRequestHandler().Post("/Site", new SiteDTO(site)).Result;
-            var newSite = JsonConvert.DeserializeObject<SiteDTO>(response);
         }
 
         private static SiteServiceProxy? instance;
@@ -47,7 +59,7 @@ namespace Library.CMS.Services {
             }
         }
 
-        public Site? Delete(int id)
+        public SiteDTO? Delete(int id)
         {
             var site = Sites.FirstOrDefault(s => s.Id == id);
             if (site != null)
@@ -58,8 +70,8 @@ namespace Library.CMS.Services {
             return site;
         }
 
-        private List<Site> sites;
-        public List<Site> Sites {
+        private List<SiteDTO> sites;
+        public List<SiteDTO> Sites {
             get
             {
                 return sites;

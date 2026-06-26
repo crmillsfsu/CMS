@@ -1,4 +1,4 @@
-﻿using Library.CMS.Models;
+﻿using Library.CMS.DTO;
 using Library.CMS.Services;
 using System;
 using System.Collections.Generic;
@@ -11,15 +11,17 @@ namespace Maui.CMS.ViewModels
     {
         public SiteViewModel()
         {
-            Model = new Site();
+            Model = new SiteDTO();
             SetUpCommands();
         }
 
-        public SiteViewModel(Site s)
+        public SiteViewModel(SiteDTO s)
         {
             Model = s;
             SetUpCommands();
         }
+
+
 
         private void SetUpCommands()
         {
@@ -39,7 +41,7 @@ namespace Maui.CMS.ViewModels
             SiteServiceProxy.Current.Delete(Model.Id);
         }
 
-        public Site Model { get; set; }
+        public SiteDTO Model { get; set; }
 
         public string? Name
         {
