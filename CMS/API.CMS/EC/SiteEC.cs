@@ -1,6 +1,7 @@
 ﻿using API.CMS.Database;
 using Library.CMS.DTO;
 using Library.CMS.Models;
+using Microsoft.Extensions.FileSystemGlobbing.Abstractions;
 
 namespace API.CMS.EC
 {
@@ -13,42 +14,19 @@ namespace API.CMS.EC
 
         public IEnumerable<SiteDTO> GetSites()
         {
-            return FakeDatabase.Sites.Take(100).Select(s => new SiteDTO(s));
+            return Filebase.Current.Sites.Take(100);
         }
 
         public SiteDTO AddOrUpdate(SiteDTO dto)
         {
-            if(dto.Id <= 0)
-            {
-                dto.Id = FakeDatabase.LastKey + 1;
-                FakeDatabase.Sites.Add(new Site(dto));
-            }
-            else
-            {
-                var site = new Site(dto);
-                var existingSite = FakeDatabase.Sites.FirstOrDefault(s => s.Id == dto.Id);
 
-                if (existingSite != null)
-                {
-                    var index = FakeDatabase.Sites.IndexOf(existingSite);
-                    FakeDatabase.Sites.Remove(existingSite);
-                    FakeDatabase.Sites.Insert(index, site);
-                }
-            }
-
-            return dto;
+            return Filebase.Current.AddOrUpdate(dto);
+            
         }
 
         public SiteDTO? Delete(int id)
         {
-            var siteToDelete = FakeDatabase.Sites.FirstOrDefault(s => s.Id == id);
-
-            if (siteToDelete == null)
-            {
-                return null;
-            }
-            FakeDatabase.Sites.Remove(siteToDelete);
-            return new SiteDTO(siteToDelete);
+            return Filebase.Current.Delete("site", id);
         }
     }
 }

@@ -3,7 +3,7 @@
 namespace API.CMS.Database
 {
 
-    public static class FakeDatabase
+    public static class Fakedatabase
     {
         public static List<Site> Sites = new List<Site>
             {
